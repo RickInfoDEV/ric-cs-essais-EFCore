@@ -8,7 +8,7 @@ namespace WizLib_Model.Models
 {
     public class Category
     {
-        public int Id { get; set; } //REM. : par défaut, EF Core comprendra qu'un champ de model, finissant par "Id", sera PK et auto-increment !
+        public int Id { get; set; } //REM. : par défaut, EF Core comprendra qu'un champ de model, ayant pour nom "Id" ou "NomDuModeleId", sera le champ PK et auto-increment !
         public string Name { get; set; }
 
     }

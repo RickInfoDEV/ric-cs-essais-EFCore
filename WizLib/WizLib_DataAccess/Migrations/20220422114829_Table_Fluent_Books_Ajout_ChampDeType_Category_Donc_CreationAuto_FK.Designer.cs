@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WizLib_DataAccess.Data;
 
 namespace WizLib_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220422114829_Table_Fluent_Books_Ajout_ChampDeType_Category_Donc_CreationAuto_FK")]
+    partial class Table_Fluent_Books_Ajout_ChampDeType_Category_Donc_CreationAuto_FK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,21 +34,6 @@ namespace WizLib_DataAccess.Migrations
                     b.HasIndex("ParticipatingAuthorsAuthor_Id");
 
                     b.ToTable("AuthorBook");
-                });
-
-            modelBuilder.Entity("Fluent_AuthorFluent_Book", b =>
-                {
-                    b.Property<int>("AuthorsA_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LivresBook_Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("AuthorsA_Id", "LivresBook_Id");
-
-                    b.HasIndex("LivresBook_Id");
-
-                    b.ToTable("Fluent_AuthorFluent_Book");
                 });
 
             modelBuilder.Entity("WizLib_Model.Models.Author", b =>
@@ -121,22 +108,6 @@ namespace WizLib_DataAccess.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Author", b =>
-                {
-                    b.Property<int>("A_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nom")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("A_Id");
-
-                    b.ToTable("Fluent_AuteursDeLivres");
-                });
-
             modelBuilder.Entity("WizLib_Model.Models.Fluent_Book", b =>
                 {
                     b.Property<int>("Book_Id")
@@ -150,16 +121,13 @@ namespace WizLib_DataAccess.Migrations
                     b.Property<int>("AutreNumberInfo")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategorieId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
-
-                    b.Property<int>("MyPublisher__Id")
-                        .HasColumnType("int");
 
                     b.Property<int?>("NumberInfoNullable")
                         .HasColumnType("int");
@@ -174,9 +142,7 @@ namespace WizLib_DataAccess.Migrations
 
                     b.HasKey("Book_Id");
 
-                    b.HasIndex("CategorieId");
-
-                    b.HasIndex("MyPublisher__Id");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Fluent_Books");
                 });
@@ -195,82 +161,6 @@ namespace WizLib_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Fluent_Categories");
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Page", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Contenu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Fluent_Book_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Numero")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Fluent_Book_Id");
-
-                    b.ToTable("Fluent_PagesDeLivre");
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Personne", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TheSexeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TheSexeId");
-
-                    b.ToTable("tb_Personnes");
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Publisher", b =>
-                {
-                    b.Property<int>("Fluent_PublisherId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nom")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Fluent_PublisherId");
-
-                    b.ToTable("Fluent_Publishers");
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Sexe", b =>
-                {
-                    b.Property<int>("Sexe_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Sexe_Id");
-
-                    b.ToTable("tb_Sexes");
                 });
 
             modelBuilder.Entity("WizLib_Model.Models.Genre", b =>
@@ -324,21 +214,6 @@ namespace WizLib_DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Fluent_AuthorFluent_Book", b =>
-                {
-                    b.HasOne("WizLib_Model.Models.Fluent_Author", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorsA_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WizLib_Model.Models.Fluent_Book", null)
-                        .WithMany()
-                        .HasForeignKey("LivresBook_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WizLib_Model.Models.Book", b =>
                 {
                     b.HasOne("WizLib_Model.Models.Category", "Category")
@@ -358,46 +233,11 @@ namespace WizLib_DataAccess.Migrations
 
             modelBuilder.Entity("WizLib_Model.Models.Fluent_Book", b =>
                 {
-                    b.HasOne("WizLib_Model.Models.Fluent_Category", "Categorie")
+                    b.HasOne("WizLib_Model.Models.Fluent_Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategorieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
-                    b.HasOne("WizLib_Model.Models.Fluent_Publisher", "MyPublisher")
-                        .WithMany()
-                        .HasForeignKey("MyPublisher__Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Categorie");
-
-                    b.Navigation("MyPublisher");
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Page", b =>
-                {
-                    b.HasOne("WizLib_Model.Models.Fluent_Book", null)
-                        .WithMany("Pages")
-                        .HasForeignKey("Fluent_Book_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Personne", b =>
-                {
-                    b.HasOne("WizLib_Model.Models.Fluent_Sexe", "Sexe")
-                        .WithMany()
-                        .HasForeignKey("TheSexeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sexe");
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Book", b =>
-                {
-                    b.Navigation("Pages");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("WizLib_Model.Models.Publisher", b =>

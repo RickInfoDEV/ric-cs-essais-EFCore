@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WizLib_DataAccess.Data;
 
 namespace WizLib_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220422142045_NewTable_AuteursDeLivres_CreationAutoDuneTableDassociation_Avec_Fluent_Books")]
+    partial class NewTable_AuteursDeLivres_CreationAutoDuneTableDassociation_Avec_Fluent_Books
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,27 +222,6 @@ namespace WizLib_DataAccess.Migrations
                     b.ToTable("Fluent_PagesDeLivre");
                 });
 
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Personne", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TheSexeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TheSexeId");
-
-                    b.ToTable("tb_Personnes");
-                });
-
             modelBuilder.Entity("WizLib_Model.Models.Fluent_Publisher", b =>
                 {
                     b.Property<int>("Fluent_PublisherId")
@@ -255,22 +236,6 @@ namespace WizLib_DataAccess.Migrations
                     b.HasKey("Fluent_PublisherId");
 
                     b.ToTable("Fluent_Publishers");
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Sexe", b =>
-                {
-                    b.Property<int>("Sexe_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Sexe_Id");
-
-                    b.ToTable("tb_Sexes");
                 });
 
             modelBuilder.Entity("WizLib_Model.Models.Genre", b =>
@@ -382,17 +347,6 @@ namespace WizLib_DataAccess.Migrations
                         .HasForeignKey("Fluent_Book_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WizLib_Model.Models.Fluent_Personne", b =>
-                {
-                    b.HasOne("WizLib_Model.Models.Fluent_Sexe", "Sexe")
-                        .WithMany()
-                        .HasForeignKey("TheSexeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sexe");
                 });
 
             modelBuilder.Entity("WizLib_Model.Models.Fluent_Book", b =>
