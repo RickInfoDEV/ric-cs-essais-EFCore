@@ -8,7 +8,7 @@ namespace WizLib_Model.Models
 {
     public class Fluent_Author //Auteur de livreS
     {
-        public int A_Id { get; set; } //REM. : par défaut, EF Core comprendra qu'un champ de model, ayant pour nom "Id" ou "NomDuModeleId", sera le champ PK et auto-increment !
+        public int A_Id { get; set; }   //REM. : par défaut non reconnu comme PK car, par défaut, EF Core comprend qu'un champ de model, ayant pour nom "Id" ou "NomDuModeleId", est le champ PK et auto-increment !
         public string Nom { get; set; }
 
 
